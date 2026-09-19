@@ -1,0 +1,170 @@
+BENCHMARK HOC BONG - 2026-09-19
+Backend: TF-IDF tu vung co dinh tren 7 van ban; khong dung API/LLM.
+
+BASELINE chunk_size=200, front matter da loai bo
+undergraduate-scholarships | fixed_size | count=8 | avg_length=185.1
+undergraduate-scholarships | by_sentences | count=4 | avg_length=368.5
+undergraduate-scholarships | recursive | count=11 | avg_length=133.2
+scholarship-renewal-policy | fixed_size | count=7 | avg_length=199.9
+scholarship-renewal-policy | by_sentences | count=4 | avg_length=348.8
+scholarship-renewal-policy | recursive | count=9 | avg_length=154.3
+uet-merit-scholarship-2025-2026 | fixed_size | count=6 | avg_length=185.0
+uet-merit-scholarship-2025-2026 | by_sentences | count=3 | avg_length=369.0
+uet-merit-scholarship-2025-2026 | recursive | count=7 | avg_length=157.4
+
+SIMILARITY PAIRS: TF-IDF + compute_similarity, high >= 0.20
+P1: 0.3339 | Học bổng toàn phần chi trả học phí. | Học bổng 100% hỗ trợ học phí.
+P2: 0.1216 | Sinh viên cần GPA để duy trì học bổng. | Điểm trung bình tối thiểu để giữ suất tài trợ là gì?
+P3: 0.1581 | UEH cấp học bổng cho sinh viên. | UEH hỗ trợ tài chính giảng viên.
+P4: 0.0404 | RMIT yêu cầu 96 tín chỉ và GPA 3,4. | UET cấp học bổng loại Giỏi 3.500.000đ/tháng.
+P5: 0.2476 | Học bổng hỗ trợ học tập UEH. | Học bổng khuyến khích học tập UET.
+
+STRATEGY fixed_220 | chunks=43 | avg_length=202.6
+Q1: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: học phí. Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí sinh hoạt; Provost’s Merit chi trả 100% học phí; Dean’s Distinction chi trả 80% hoặc 90%; Discipline’s Honor chi trả 50% [1]
+  top1: undergraduate-scholarships#2 score=0.482 |  học phí. Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí 
+  top2: rmit-current-student-scholarship-2026#0 score=0.145 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026  RMIT Việt Nam dành 21 suất cho 
+  top3: undergraduate-scholarships#3 score=0.127 | Discipline’s Honor chi trả 50%, 60% hoặc 70% học phí.  ## Hỗ trợ bổ sung  Một số học bổng đặc biệt c
+Q2: evidence_rank=- score=0 answer_has_marker=False scope=- filter=-
+  answer: Học bổng [1]
+  top1: scholarship-renewal-policy#1 score=0.279 | ài chính. Học bổng đầu vào và hỗ trợ theo nhu cầu được cấp cho toàn khóa theo điều kiện duy trì; học
+  top2: scholarship-renewal-policy#5 score=0.213 | động gia hạn, không có yêu cầu duy trì riêng trong bảng quy định. | | Học bổng WIT 5% | Tự động gia 
+  top3: scholarship-renewal-policy#0 score=0.192 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính  Văn bản GDL-SAM-004-V2.1, ban hành ngày 04/
+Q3: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Chuẩn QH-2023 đến QH-2025 | 3.600.000đ/tháng | 3.500.000đ/tháng | 3.400.000đ/tháng [1]
+  top1: uet-merit-scholarship-2025-2026#3 score=0.320 | --: | ---: | ---: | | Chuẩn QH-2021 | 2.050.000đ/tháng | 1.950.000đ/tháng | 1.850.000đ/tháng | | Chu
+  top2: uet-merit-scholarship-2025-2026#4 score=0.312 | hất lượng cao QH-2022 | 4.100.000đ/tháng | 4.000.000đ/tháng | 3.900.000đ/tháng | | Định mức kinh tế 
+  top3: uet-merit-scholarship-2025-2026#2 score=0.153 |  học tập từ Giỏi và rèn luyện từ Tốt. Số người nhận phụ thuộc quỹ bằng 8% nguồn thực thu học phí the
+Q4: evidence_rank=2 score=1 answer_has_marker=True scope=- filter=-
+  answer: Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0. Sinh viên đang giữ học bổng 50% không đủ điều kiện nộp. Tín chỉ từ chương trình không cấp bằng hoặc từ trường [2]
+  top1: rmit-current-student-scholarship-2026#0 score=0.476 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026  RMIT Việt Nam dành 21 suất cho 
+  top2: rmit-current-student-scholarship-2026#2 score=0.296 | ất 25%.  Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiể
+  top3: rmit-business-scholarship-2026#0 score=0.210 | # Học bổng Cử nhân Kinh doanh RMIT Việt Nam 2026  Học bổng dành cho sinh viên mới nhập học chương tr
+Q5: evidence_rank=1 score=2 answer_has_marker=True scope=ueh filter={'audience': 'student'}
+  answer: Học bổng toàn phần bằng 100% học phí trung bình của 15 tín chỉ, tương đương một học kỳ của khóa xét. Sinh viên cần có hoàn cảnh khó khăn, học lực từ Khá và rèn luyện từ Tốt [1]
+  top1: ueh-learning-support-scholarship#0 score=0.218 | # Học bổng hỗ trợ học tập UEH  ## Mức học bổng  Học bổng toàn phần bằng 100% học phí trung bình của 
+  top2: ueh-learning-support-scholarship#3 score=0.082 |  kỷ luật từ mức khiển trách và chưa nhận học bổng khác có giá trị tương đương một suất toàn phần tro
+  top3: ueh-learning-support-scholarship#2 score=0.079 | nghèo, cận nghèo hoặc có hoàn cảnh khó khăn; kết quả học tập tối thiểu Trung bình khá, rèn luyện tối
+  AB institution-only: ueh-faculty-support(faculty), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+  AB filtered: ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+TOTAL rubric score=7/10
+
+STRATEGY sentence_2 | chunks=32 | avg_length=237.2
+Q1: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Học bổng tài năng dành cho ứng viên có thành tích học tập và phẩm chất cá nhân nổi bật; mức hỗ trợ từ 50% đến 100% học phí. Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí sinh hoạt; Provost’s Merit chi trả 100% học phí; Dean’s Distinction chi trả 80% hoặc 90%; Discipline’s Honor chi trả 50%, 60% hoặc 70% học phí. [1]
+  top1: undergraduate-scholarships#1 score=0.392 | Học bổng tài năng dành cho ứng viên có thành tích học tập và phẩm chất cá nhân nổi bật; mức hỗ trợ t
+  top2: undergraduate-scholarships#4 score=0.120 | Future Leader Grant nhắm đến ứng viên được học bổng 80–90% nhưng khó chi trả 10–20% còn lại. Mức học
+  top3: rmit-current-student-scholarship-2026#0 score=0.109 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026  RMIT Việt Nam dành 21 suất cho 
+Q2: evidence_rank=- score=0 answer_has_marker=False scope=- filter=-
+  answer: Với học bổng toàn phần hoặc 100%, GPA từ 2,50 đến 3,19 có thể dẫn tới phương án duy trì có điều kiện thêm một học kỳ chính để cải thiện; GPA dưới 2,50 có thể bị hạ một bậc. [1]
+  top1: scholarship-renewal-policy#3 score=0.241 | | | Học bổng WIT 5% | Tự động gia hạn nếu học bổng đầu vào chính vẫn được duy trì. |  Với học bổng t
+  top2: scholarship-renewal-policy#0 score=0.228 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính  Văn bản GDL-SAM-004-V2.1, ban hành ngày 04/
+  top3: undergraduate-scholarships#5 score=0.181 | Học bổng áp dụng trong quá trình học nếu người nhận đáp ứng điều kiện duy trì theo quy định của trườ
+Q3: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Chuẩn QH-2023 đến QH-2025 | 3.600.000đ/tháng | 3.500.000đ/tháng | 3.400.000đ/tháng [1]
+  top1: uet-merit-scholarship-2025-2026#2 score=0.339 | | Chương trình và khóa | Xuất sắc | Giỏi | Khá | | --- | ---: | ---: | ---: | | Chuẩn QH-2021 | 2.05
+  top2: uet-merit-scholarship-2025-2026#0 score=0.123 | # Học bổng khuyến khích học tập UET học kỳ I năm 2025–2026  Quyết định cấp học bổng cho sinh viên đa
+  top3: undergraduate-scholarships#0 score=0.069 | # Học bổng đầu vào bậc cử nhân  ## Tài trợ học phí và học bổng tài năng  Sinh viên nhập học từ năm 2
+Q4: evidence_rank=2 score=1 answer_has_marker=True scope=- filter=-
+  answer: Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0. Sinh viên đang giữ học bổng 50% không đủ điều kiện nộp. [2]
+  top1: rmit-current-student-scholarship-2026#0 score=0.361 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026  RMIT Việt Nam dành 21 suất cho 
+  top2: rmit-current-student-scholarship-2026#1 score=0.310 | Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0
+  top3: rmit-business-scholarship-2026#0 score=0.207 | # Học bổng Cử nhân Kinh doanh RMIT Việt Nam 2026  Học bổng dành cho sinh viên mới nhập học chương tr
+Q5: evidence_rank=1 score=2 answer_has_marker=True scope=ueh filter={'audience': 'student'}
+  answer: Học bổng toàn phần bằng 100% học phí trung bình của 15 tín chỉ, tương đương một học kỳ của khóa xét. Sinh viên cần có hoàn cảnh khó khăn, học lực từ Khá và rèn luyện từ Tốt. [1]
+  top1: ueh-learning-support-scholarship#0 score=0.218 | # Học bổng hỗ trợ học tập UEH  ## Mức học bổng  Học bổng toàn phần bằng 100% học phí trung bình của 
+  top2: ueh-learning-support-scholarship#2 score=0.082 | Các học phần đăng ký trong học kỳ trước phải đạt từ 5,0/10. Sinh viên không bị kỷ luật từ mức khiển 
+  top3: ueh-learning-support-scholarship#1 score=0.052 | Học bổng bán phần bằng 50% mức học phí trung bình của 15 tín chỉ; yêu cầu học lực và rèn luyện đều t
+  AB institution-only: ueh-faculty-support(faculty), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+  AB filtered: ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+TOTAL rubric score=7/10
+
+STRATEGY recursive_280 | chunks=40 | avg_length=189.4
+Q1: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí sinh hoạt; Provost’s Merit chi trả 100% học phí; Dean’s Distinction chi trả 80% hoặc 90%; Discipline’s Honor chi trả 50%, 60% hoặc 70% học phí. [1]
+  top1: undergraduate-scholarships#2 score=0.449 | Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí sinh hoạt;
+  top2: rmit-current-student-scholarship-2026#0 score=0.145 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026  RMIT Việt Nam dành 21 suất cho 
+  top3: undergraduate-scholarships#6 score=0.117 | Future Leader Grant nhắm đến ứng viên được học bổng 80–90% nhưng khó chi trả 10–20% còn lại. Mức học
+Q2: evidence_rank=- score=0 answer_has_marker=False scope=- filter=-
+  answer: Học bổng WIT 5% | Tự động gia hạn nếu học bổng đầu vào chính vẫn được duy trì. [2]
+  top1: scholarship-renewal-policy#0 score=0.320 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính
+  top2: scholarship-renewal-policy#4 score=0.205 | | Học bổng Vinschool–VinUni và Special Academic 5%; tài trợ phát triển giáo dục 35% | Tự động gia hạ
+  top3: scholarship-renewal-policy#5 score=0.174 | Với học bổng toàn phần hoặc 100%, GPA từ 2,50 đến 3,19 có thể dẫn tới phương án duy trì có điều kiện
+Q3: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Chuẩn QH-2023 đến QH-2025 | 3.600.000đ/tháng | 3.500.000đ/tháng | 3.400.000đ/tháng [1]
+  top1: uet-merit-scholarship-2025-2026#3 score=0.351 | | Chương trình và khóa | Xuất sắc | Giỏi | Khá | | --- | ---: | ---: | ---: | | Chuẩn QH-2021 | 2.05
+  top2: uet-merit-scholarship-2025-2026#4 score=0.312 | | CNTT chất lượng cao QH-2022 | 4.100.000đ/tháng | 4.000.000đ/tháng | 3.900.000đ/tháng | | Định mức 
+  top3: uet-merit-scholarship-2025-2026#0 score=0.200 | # Học bổng khuyến khích học tập UET học kỳ I năm 2025–2026
+Q4: evidence_rank=2 score=1 answer_has_marker=True scope=- filter=-
+  answer: Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0. Sinh viên đang giữ học bổng 50% không đủ điều kiện nộp. Tín chỉ từ chương trình không cấp bằng hoặc từ trường khác không được tính vào ngưỡng 96. [2]
+  top1: rmit-current-student-scholarship-2026#0 score=0.476 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026  RMIT Việt Nam dành 21 suất cho 
+  top2: rmit-current-student-scholarship-2026#2 score=0.276 | Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0
+  top3: rmit-business-scholarship-2026#0 score=0.207 | # Học bổng Cử nhân Kinh doanh RMIT Việt Nam 2026  Học bổng dành cho sinh viên mới nhập học chương tr
+Q5: evidence_rank=1 score=2 answer_has_marker=True scope=ueh filter={'audience': 'student'}
+  answer: Học bổng toàn phần bằng 100% học phí trung bình của 15 tín chỉ, tương đương một học kỳ của khóa xét. Sinh viên cần có hoàn cảnh khó khăn, học lực từ Khá và rèn luyện từ Tốt. [1]
+  top1: ueh-learning-support-scholarship#0 score=0.218 | # Học bổng hỗ trợ học tập UEH  ## Mức học bổng  Học bổng toàn phần bằng 100% học phí trung bình của 
+  top2: ueh-learning-support-scholarship#3 score=0.073 | Sinh viên không bị kỷ luật từ mức khiển trách và chưa nhận học bổng khác có giá trị tương đương một 
+  top3: ueh-learning-support-scholarship#2 score=0.072 | Sinh viên thuộc diện mồ côi, hộ nghèo, cận nghèo hoặc có hoàn cảnh khó khăn; kết quả học tập tối thi
+  AB institution-only: ueh-faculty-support(faculty), ueh-learning-support-scholarship(student), ueh-faculty-support(faculty)
+  AB filtered: ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+TOTAL rubric score=7/10
+
+STRATEGY heading_320 | chunks=41 | avg_length=219.6
+Q1: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí sinh hoạt; Provost’s Merit chi trả 100% học phí; Dean’s Distinction chi trả 80% hoặc 90%; Discipline’s Honor chi trả 50%, 60% hoặc 70% học phí. [1]
+  top1: undergraduate-scholarships#3 score=0.451 | ## Tài trợ học phí và học bổng tài năng Theo trang tuyển sinh, học bổng President’s Excellence chi t
+  top2: rmit-current-student-scholarship-2026#0 score=0.145 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026 RMIT Việt Nam dành 21 suất cho s
+  top3: undergraduate-scholarships#7 score=0.113 | ## Hỗ trợ bổ sung Future Leader Grant nhắm đến ứng viên được học bổng 80–90% nhưng khó chi trả 10–20
+Q2: evidence_rank=- score=0 answer_has_marker=False scope=- filter=-
+  answer: Học bổng WIT 5% | Tự động gia hạn nếu học bổng đầu vào chính vẫn được duy trì. [2]
+  top1: scholarship-renewal-policy#1 score=0.272 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính Học bổng đầu vào và hỗ trợ theo nhu cầu được
+  top2: scholarship-renewal-policy#5 score=0.251 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính | Học bổng Vinschool–VinUni và Special Acade
+  top3: scholarship-renewal-policy#6 score=0.247 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính Với học bổng toàn phần hoặc 100%, GPA từ 2,5
+Q3: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Chuẩn QH-2023 đến QH-2025 | 3.600.000đ/tháng | 3.500.000đ/tháng | 3.400.000đ/tháng [1]
+  top1: uet-merit-scholarship-2025-2026#3 score=0.398 | # Học bổng khuyến khích học tập UET học kỳ I năm 2025–2026 | Chương trình và khóa | Xuất sắc | Giỏi 
+  top2: uet-merit-scholarship-2025-2026#4 score=0.362 | # Học bổng khuyến khích học tập UET học kỳ I năm 2025–2026 | CNTT chất lượng cao QH-2022 | 4.100.000
+  top3: uet-merit-scholarship-2025-2026#2 score=0.149 | # Học bổng khuyến khích học tập UET học kỳ I năm 2025–2026 Số người nhận phụ thuộc quỹ bằng 8% nguồn
+Q4: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0. Sinh viên đang giữ học bổng 50% không đủ điều kiện nộp. Tín chỉ từ chương trình không cấp bằng hoặc từ trường khác không được tính vào ngưỡng 96. [1]
+  top1: rmit-current-student-scholarship-2026#2 score=0.490 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026 Điều kiện xét gồm đã tích lũy ít
+  top2: rmit-current-student-scholarship-2026#0 score=0.476 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026 RMIT Việt Nam dành 21 suất cho s
+  top3: rmit-current-student-scholarship-2026#4 score=0.434 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026 Hạn nộp cho học kỳ 3 năm 2026 là
+Q5: evidence_rank=2 score=1 answer_has_marker=True scope=ueh filter={'audience': 'student'}
+  answer: Học bổng toàn phần bằng 100% học phí trung bình của 15 tín chỉ, tương đương một học kỳ của khóa xét. Sinh viên cần có hoàn cảnh khó khăn, học lực từ Khá và rèn luyện từ Tốt. Học bổng bán phần bằng 50% mức học phí trung bình của 15 tín chỉ; yêu cầu học lực và rèn luyện đều từ Khá. [2]
+  top1: ueh-learning-support-scholarship#0 score=0.273 | # Học bổng hỗ trợ học tập UEH
+  top2: ueh-learning-support-scholarship#1 score=0.081 | ## Mức học bổng  Học bổng toàn phần bằng 100% học phí trung bình của 15 tín chỉ, tương đương một học
+  top3: ueh-learning-support-scholarship#3 score=0.072 | ## Điều kiện xét Sinh viên không bị kỷ luật từ mức khiển trách và chưa nhận học bổng khác có giá trị
+  AB institution-only: ueh-faculty-support(faculty), ueh-learning-support-scholarship(student), ueh-faculty-support(faculty)
+  AB filtered: ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+TOTAL rubric score=7/10
+
+STRATEGY paragraph_360 | chunks=32 | avg_length=237.0
+Q1: evidence_rank=1 score=2 answer_has_marker=True scope=- filter=-
+  answer: Học bổng tài năng dành cho ứng viên có thành tích học tập và phẩm chất cá nhân nổi bật; mức hỗ trợ từ 50% đến 100% học phí. Theo trang tuyển sinh, học bổng President’s Excellence chi trả toàn bộ học phí và chi phí sinh hoạt; Provost’s Merit chi trả 100% học phí; Dean’s Distinction chi trả 80% hoặc 90%; Discipline’s Honor chi trả 50%, 60% hoặc 70% học phí. [1]
+  top1: undergraduate-scholarships#1 score=0.392 | Học bổng tài năng dành cho ứng viên có thành tích học tập và phẩm chất cá nhân nổi bật; mức hỗ trợ t
+  top2: rmit-current-student-scholarship-2026#1 score=0.107 | RMIT Việt Nam dành 21 suất cho sinh viên cử nhân đang học trong ba học kỳ của năm 2026: 9 suất chi t
+  top3: undergraduate-scholarships#3 score=0.086 | Các quỹ tài trợ tư nhân hướng tới ứng viên đã đạt học bổng tài năng từ 80% trở lên nhưng vẫn gặp khó
+Q2: evidence_rank=3 score=1 answer_has_marker=False scope=- filter=-
+  answer: Học bổng WIT 5% | Tự động gia hạn nếu học bổng đầu vào chính vẫn được duy trì. [2]
+  top1: scholarship-renewal-policy#0 score=0.228 | # Tiêu chí duy trì học bổng đầu vào và hỗ trợ tài chính  Văn bản GDL-SAM-004-V2.1, ban hành ngày 04/
+  top2: scholarship-renewal-policy#3 score=0.205 | | Học bổng Vinschool–VinUni và Special Academic 5%; tài trợ phát triển giáo dục 35% | Tự động gia hạ
+  top3: scholarship-renewal-policy#1 score=0.169 | | Khoản hỗ trợ | Ngưỡng và điều kiện duy trì | | --- | --- | | Học bổng toàn phần hoặc 100% | GPA tí
+Q3: evidence_rank=2 score=1 answer_has_marker=True scope=- filter=-
+  answer: Chuẩn QH-2023 đến QH-2025 | 3.600.000đ/tháng | 3.500.000đ/tháng | 3.400.000đ/tháng [2]
+  top1: uet-merit-scholarship-2025-2026#4 score=0.388 | | Định mức kinh tế kỹ thuật QH-2023 đến QH-2025 | 4.200.000đ/tháng | 4.100.000đ/tháng | 4.000.000đ/t
+  top2: uet-merit-scholarship-2025-2026#3 score=0.316 | | Chương trình và khóa | Xuất sắc | Giỏi | Khá | | --- | ---: | ---: | ---: | | Chuẩn QH-2021 | 2.05
+  top3: uet-merit-scholarship-2025-2026#0 score=0.200 | # Học bổng khuyến khích học tập UET học kỳ I năm 2025–2026
+Q4: evidence_rank=3 score=1 answer_has_marker=True scope=- filter=-
+  answer: Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0. Sinh viên đang giữ học bổng 50% không đủ điều kiện nộp. Tín chỉ từ chương trình không cấp bằng hoặc từ trường khác không được tính vào ngưỡng 96. [3]
+  top1: rmit-current-student-scholarship-2026#0 score=0.737 | # Học bổng thành tích cho sinh viên RMIT Việt Nam đang học năm 2026
+  top2: rmit-business-scholarship-2026#0 score=0.340 | # Học bổng Cử nhân Kinh doanh RMIT Việt Nam 2026
+  top3: rmit-current-student-scholarship-2026#2 score=0.276 | Điều kiện xét gồm đã tích lũy ít nhất 96 tín chỉ tại RMIT Việt Nam và GPA tích lũy tối thiểu 3,4/4,0
+Q5: evidence_rank=1 score=1 answer_has_marker=False scope=ueh filter={'audience': 'student'}
+  answer: Sinh viên thuộc diện mồ côi, hộ nghèo, cận nghèo hoặc có hoàn cảnh khó khăn; kết quả học tập tối thiểu Trung bình khá, rèn luyện tối thiểu Khá. Các học phần đăng ký trong học kỳ trước phải đạt từ 5,0/10. Sinh viên không bị kỷ luật từ mức khiển trách và chưa nhận học bổng khác có giá trị tương đương một suất toàn phần trong học kỳ xét. [2]
+  top1: ueh-learning-support-scholarship#0 score=0.166 | # Học bổng hỗ trợ học tập UEH  ## Mức học bổng  Học bổng toàn phần bằng 100% học phí trung bình của 
+  top2: ueh-learning-support-scholarship#1 score=0.088 | Sinh viên thuộc diện mồ côi, hộ nghèo, cận nghèo hoặc có hoàn cảnh khó khăn; kết quả học tập tối thi
+  top3: ueh-learning-support-scholarship#2 score=0.041 | UEH xét đợt đầu trong tháng 4–5 và đợt cuối trong tháng 10–11. Việc xét dựa trên hồ sơ hoàn cảnh khó
+  AB institution-only: ueh-faculty-support(faculty), ueh-learning-support-scholarship(student), ueh-faculty-support(faculty)
+  AB filtered: ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student), ueh-learning-support-scholarship(student)
+TOTAL rubric score=6/10

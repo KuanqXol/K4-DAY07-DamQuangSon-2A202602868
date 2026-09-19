@@ -12,4 +12,4 @@ L3A dùng chung cam kết mã nguồn cốt lõi (core coding contract) với L3
 - Ít nhất một thành viên thử chia nhỏ (chunking) theo tiêu đề/mục (heading/section) của sổ tay hoặc quy định học vụ.
 - Câu trả lời chuẩn (Gold answer) phải trích được từ tài liệu nhóm thu thập, không suy đoán quy định của trường.
 
-Thư mục `data/university/` có dữ liệu khởi động nhỏ; nhóm vẫn cần bổ sung tập tài liệu (corpus) 5–10 tài liệu theo yêu cầu Lab.
+Tập dữ liệu nộp bài gồm 7 tài liệu đã chọn trong `data/hoc-bong/`, kèm `sources.csv` và `urls.csv`.

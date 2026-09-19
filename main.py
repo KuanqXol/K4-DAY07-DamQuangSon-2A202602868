@@ -21,12 +21,13 @@ from src.models import Document
 from src.store import EmbeddingStore
 
 SAMPLE_FILES = [
-    "data/python_intro.txt",
-    "data/vector_store_notes.md",
-    "data/rag_system_design.md",
-    "data/customer_support_playbook.txt",
-    "data/chunking_experiment_report.md",
-    "data/vi_retrieval_notes.md",
+    "data/hoc-bong/undergraduate-scholarships.md",
+    "data/hoc-bong/scholarship-renewal-policy.md",
+    "data/hoc-bong/ueh-learning-support-scholarship.md",
+    "data/hoc-bong/ueh-faculty-support.md",
+    "data/hoc-bong/uet-merit-scholarship-2025-2026.md",
+    "data/hoc-bong/rmit-business-scholarship-2026.md",
+    "data/hoc-bong/rmit-current-student-scholarship-2026.md",
 ]
 
 
@@ -47,11 +48,20 @@ def load_documents_from_files(file_paths: list[str]) -> list[Document]:
             continue
 
         content = path.read_text(encoding="utf-8")
+        metadata = {"source": str(path), "extension": path.suffix.lower()}
+        if content.startswith("---\n"):
+            front_matter, separator, body = content[4:].partition("\n---\n")
+            if separator:
+                for line in front_matter.splitlines():
+                    key, delimiter, value = line.partition(": ")
+                    if delimiter:
+                        metadata[key] = value.strip().strip('"')
+                content = body.strip()
         documents.append(
             Document(
-                id=path.stem,
+                id=metadata.get("doc_id", path.stem),
                 content=content,
-                metadata={"source": str(path), "extension": path.suffix.lower()},
+                metadata=metadata,
             )
         )
 
@@ -127,6 +137,8 @@ def run_manual_demo(question: str | None = None, sample_files: list[str] | None 
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     question = " ".join(sys.argv[1:]).strip() if len(sys.argv) > 1 else None
     return run_manual_demo(question=question)
 

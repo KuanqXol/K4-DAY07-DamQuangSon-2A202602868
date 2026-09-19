@@ -1,6 +1,8 @@
 # K4-L3A — Ngày 7: Nền Tảng Dữ Liệu, Embedding & Vector Store
 
-> Bản K4-L3A của Lab 07 (chủ đề: dịch vụ/quy định đại học). Hướng dẫn Codelabs để tải lên nằm tại `../codelabs/day7-lab-data-foundations.md`; yêu cầu Giai đoạn 2 riêng xem [K4_VARIANT.md](K4_VARIANT.md). Lớp song song L3B dùng cùng bài học nhưng crawl chủ đề thương mại điện tử.
+> Bản K4-L3A của Lab 07 (chủ đề: dịch vụ/quy định đại học). Hướng dẫn nằm tại [day7-lab-data-foundations.md](day7-lab-data-foundations.md); yêu cầu Giai đoạn 2 riêng xem [K4_VARIANT.md](K4_VARIANT.md). Lớp song song L3B dùng cùng bài học nhưng crawl chủ đề thương mại điện tử.
+
+Bộ nộp hiện tại dùng 7 tài liệu học bổng trong [`data/hoc-bong/`](data/hoc-bong/). Chạy `python scripts/check_corpus.py` để kiểm tra dữ liệu, `python -m pytest tests/ -q` để kiểm tra mã nguồn, và `python bench.py` để tạo lại [`ket_qua_benchmark.txt`](ket_qua_benchmark.txt). Benchmark dùng TF-IDF và bộ trả lời trích dòng để có thể chạy không cần API; `main.py` mặc định vẫn là demo với mock embedder và mock LLM.
 
 ---
 
@@ -35,7 +37,7 @@ Phần bắt buộc được kiểm thử trên **Python 3.11**. Dùng đúng tr
 
 ```bash
 pip install -r requirements.txt
-pytest tests/ -v          # Phần lớn bài kiểm thử sẽ THẤT BẠI (chưa được lập trình)
+pytest tests/ -v          # Bộ nộp hiện tại: 42 bài kiểm thử đạt
 ```
 
 Mặc định, lab vẫn chạy với trình nhúng giả lập `_mock_embed` nên **không bắt buộc** cài đặt mô hình nhúng (embedder) thật.
